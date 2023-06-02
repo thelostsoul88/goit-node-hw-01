@@ -40,19 +40,23 @@ const removeContact = async (contactId) => {
 };
 
 const addContact = async (name, email, phone) => {
-  const data = await listContacts();
-  const newContact = {
-    id: uuidv4(),
-    name,
-    email,
-    phone,
-  };
-  if (data.some((contact) => contact.phone === newContact.phone)) {
-    console.log("already have this contact!".red);
-  } else {
-    data.push(newContact);
-    await writeFile(contactsPath, JSON.stringify(data));
-    return newContact;
+  try {
+    const data = await listContacts();
+    const newContact = {
+      id: uuidv4(),
+      name,
+      email,
+      phone,
+    };
+    if (data.some((contact) => contact.phone === newContact.phone)) {
+      console.log("already have this contact!".red);
+    } else {
+      data.push(newContact);
+      await writeFile(contactsPath, JSON.stringify(data));
+      return newContact;
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 
