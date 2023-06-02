@@ -49,7 +49,7 @@ const addContact = async (name, email, phone) => {
       phone,
     };
     if (data.some((contact) => contact.phone === newContact.phone)) {
-      console.log("already have this contact!".red);
+      console.log("already have this contact!!".red);
     } else {
       data.push(newContact);
       await writeFile(contactsPath, JSON.stringify(data));
